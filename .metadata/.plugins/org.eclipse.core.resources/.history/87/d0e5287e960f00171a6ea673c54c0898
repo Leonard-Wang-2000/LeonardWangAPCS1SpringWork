@@ -162,13 +162,14 @@ Scanner outputFile;
 				data[2] = Double.toString(holder);
 				data[2] += "%";
 			}
-			cellAssignment(data[2], data[0]);
+			cellAssignment(data[0], data[2]);
 		}
 		
 		outputFile.close();
 		return getGridText();
 
 	}
+	
 	private String writeToFile(String filename){ 
 		 String fileData = "";
 	     PrintStream inputFile;

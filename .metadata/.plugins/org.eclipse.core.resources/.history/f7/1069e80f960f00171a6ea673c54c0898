@@ -144,30 +144,29 @@ public class Spreadsheet implements Grid
 	}
 	//YO NO COMPRENDO how to file process
 	private String readFromFile(String filename){ 
-Scanner outputFile;
-		
-		try {
-			outputFile = new Scanner(new File(filename));
-		}
-		
-		catch (FileNotFoundException e) {
-			return "File not found: " + filename;
-		}
-		
-		while(outputFile.hasNextLine()){
-			String[] data = outputFile.nextLine().split(",");
-			if(data[1].equals("PercentCell")){
-				double holder = Double.parseDouble(data[2]);
-				holder = holder * 100.0;
-				data[2] = Double.toString(holder);
-				data[2] += "%";
-			}
-			cellAssignment(data[2], data[0]);
-		}
-		
-		outputFile.close();
-		return getGridText();
-
+	     Scanner outputFile;
+	     try {
+	            outputFile = new Scanner(new File(filename));
+	     }
+	     catch (FileNotFoundException e) {
+	            return "File not found: " + filename;
+	       }
+	     while(outputFile.hasNextLine()){
+	    	 String [] splitAtCommas = outputFile.nextLine().split(",");
+	    	 SpreadsheetLocation b = new SpreadsheetLocation(splitAtCommas[0]);
+	 		//assigns cell accordingly to distinct characteristics
+	 		if(splitAtCommas[1].equals("PercentCell")){
+	 			arrayOfStuff[b.getRow()][b.getCol()] = new PercentCell(Double.parseDouble(splitAtCommas[2])/100.0 + "%");
+	 		} else if(splitAtCommas[1].equals("TextCell")){
+	 			arrayOfStuff[b.getRow()][b.getCol()] = new TextCell(splitAtCommas[2]);
+	 		} else if(splitAtCommas[1].equals("FormulaCell")){
+	 			arrayOfStuff[b.getRow()][b.getCol()] = new FormulaCell(splitAtCommas[2]);
+	 		} else if(splitAtCommas[1].equals("ValueCell")){
+	 			arrayOfStuff[b.getRow()][b.getCol()] = new ValueCell(splitAtCommas[2]);
+	 		}
+	     }
+	     outputFile.close();
+	     return getGridText();
 	}
 	private String writeToFile(String filename){ 
 		 String fileData = "";

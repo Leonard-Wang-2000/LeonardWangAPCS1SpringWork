@@ -21,10 +21,10 @@ public class Spreadsheet implements Grid
 		
 		String[] splitCommand = command.split(" ");
 		if(command.contains("open")){
-			return (readFromFile(splitCommand[1]));
+			System.out.print(readFromFile(splitCommand[1]));
 		}
 		if(command.contains("save")){
-			return (writeToFile(splitCommand[1]));
+			System.out.println(writeToFile(splitCommand[1]));
 		}
 		//in case of lower case
 		splitCommand[0] = splitCommand[0].toUpperCase();
@@ -162,13 +162,14 @@ Scanner outputFile;
 				data[2] = Double.toString(holder);
 				data[2] += "%";
 			}
-			cellAssignment(data[2], data[0]);
+			cellAssignment(data[0], data[2]);
 		}
 		
 		outputFile.close();
 		return getGridText();
 
 	}
+	
 	private String writeToFile(String filename){ 
 		 String fileData = "";
 	     PrintStream inputFile;

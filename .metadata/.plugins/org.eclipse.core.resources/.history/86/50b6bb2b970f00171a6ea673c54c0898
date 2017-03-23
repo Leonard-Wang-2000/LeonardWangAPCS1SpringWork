@@ -169,6 +169,7 @@ Scanner outputFile;
 		return getGridText();
 
 	}
+	
 	private String writeToFile(String filename){ 
 		 String fileData = "";
 	     PrintStream inputFile;

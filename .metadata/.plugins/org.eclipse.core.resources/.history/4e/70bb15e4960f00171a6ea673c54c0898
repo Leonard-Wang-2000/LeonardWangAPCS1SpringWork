@@ -144,6 +144,31 @@ public class Spreadsheet implements Grid
 	}
 	//YO NO COMPRENDO how to file process
 	private String readFromFile(String filename){ 
+	     Scanner outputFile;
+	     try {
+	            outputFile = new Scanner(new File(filename));
+	     }
+	     catch (FileNotFoundException e) {
+	            return "File not found: " + filename;
+	       }
+	     while(outputFile.hasNextLine()){
+	    	 String [] splitAtCommas = outputFile.nextLine().split(",");
+	    	 SpreadsheetLocation b = new SpreadsheetLocation(splitAtCommas[0]);
+	 		//assigns cell accordingly to distinct characteristics
+	 		if(splitAtCommas[1].equals("PercentCell")){
+	 			arrayOfStuff[b.getRow()][b.getCol()] = new PercentCell(Double.parseDouble(splitAtCommas[2])/100.0 + "%");
+	 		} else if(splitAtCommas[1].equals("TextCell")){
+	 			arrayOfStuff[b.getRow()][b.getCol()] = new TextCell(splitAtCommas[2]);
+	 		} else if(splitAtCommas[1].equals("FormulaCell")){
+	 			arrayOfStuff[b.getRow()][b.getCol()] = new FormulaCell(splitAtCommas[2]);
+	 		} else if(splitAtCommas[1].equals("ValueCell")){
+	 			arrayOfStuff[b.getRow()][b.getCol()] = new ValueCell(splitAtCommas[2]);
+	 		}
+	     }
+	     outputFile.close();
+	     return getGridText();
+	}
+	private String writeToFile(String filename){ 
 Scanner outputFile;
 		
 		try {
@@ -168,36 +193,5 @@ Scanner outputFile;
 		outputFile.close();
 		return getGridText();
 
-	}
-	private String writeToFile(String filename){ 
-		 String fileData = "";
-	     PrintStream inputFile;
-	     try {
-	            inputFile = new PrintStream(new File(filename));
-	     }
-	     catch (FileNotFoundException e) {
-	            return "File not found: " + filename;
-	     }
-	     for(int i = 0; i < 20; i++){
-	    	 for(int j = 0; j < 12; j++){
-	    		 if (!(arrayOfStuff[i][j] instanceof EmptyCell)){
-					fileData += (char)(j + 'A') + "" + (i+1) + ",";
-					if(arrayOfStuff[i][j] instanceof TextCell){
-						fileData += "TextCell" + ",";
-					} else if(arrayOfStuff[i][j] instanceof ValueCell){
-						fileData += "ValueCell" + ",";
-					} else if(arrayOfStuff[i][j] instanceof PercentCell){
-						fileData += "PercentCell" + ",";
-					} else{
-						fileData += "FormulaCell" + ",";
-					}
-					fileData += arrayOfStuff[i][j].fullCellText();
-					inputFile.println(fileData);
-				}
-	    		fileData = "";
-	    	 }
-	     }
-	inputFile.close();
-	return "";
 	}
 }
