@@ -1,26 +1,26 @@
+//APCS1 Leonard Wang 1stperiod
 package textExcel;
-
-//Update this file with your own code.
-
 public class SpreadsheetLocation implements Location
 {
-    @Override
-    public int getRow()
+    private String location;
+	public int getRow()
     {
-        // TODO Auto-generated method stub
-        return 0;
+		//changes String to int
+		int row = Integer.parseInt(location.substring(1));
+		//since arrays are zero based indexing
+        return row - 1;
     }
 
-    @Override
     public int getCol()
     {
-        // TODO Auto-generated method stub
-        return 0;
+    	//return the index of where the letter is-ASCII table
+    	int col = location.charAt(0);
+    	return col - 65;
     }
     
     public SpreadsheetLocation(String cellName)
     {
-        // TODO: Fill this out with your own code
+        location = cellName;
     }
 
 }
