@@ -59,7 +59,6 @@ public class Spreadsheet implements Grid
 		}
 		return "";
 	}
-	
 	public int getRows()
 	{
 		return this.rows;
@@ -75,10 +74,11 @@ public class Spreadsheet implements Grid
 	{
 		return arrayOfStuff[loc.getRow()][loc.getCol()];
 	}
-	
+
 	public String getGridText()
 	{
 		String grid = "   |";
+		
 		//fills in the top row with the letters
 		for(int i = 0; i < cols; i++){
 			//cast to character type for letters, add the 10 spaces between this and the next one

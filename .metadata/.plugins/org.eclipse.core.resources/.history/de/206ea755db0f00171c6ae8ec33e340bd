@@ -59,7 +59,6 @@ public class Spreadsheet implements Grid
 		}
 		return "";
 	}
-	
 	public int getRows()
 	{
 		return this.rows;
@@ -75,10 +74,11 @@ public class Spreadsheet implements Grid
 	{
 		return arrayOfStuff[loc.getRow()][loc.getCol()];
 	}
-	
+
 	public String getGridText()
 	{
 		String grid = "   |";
+		
 		//fills in the top row with the letters
 		for(int i = 0; i < cols; i++){
 			//cast to character type for letters, add the 10 spaces between this and the next one
@@ -153,19 +153,16 @@ Scanner outputFile;
 		catch (FileNotFoundException e) {
 			return "File not found: " + filename;
 		}
-		//keep running while theres a next line
+		
 		while(outputFile.hasNextLine()){
-			//split at commas
-			String[] splitAtCommas = outputFile.nextLine().split(",");
-			//if percentcell, put the percent back in and multiple by 100
-			if(splitAtCommas[1].equals("PercentCell")){
-				double holder = Double.parseDouble(splitAtCommas[2]);
-				holder = holder * 100;
-				splitAtCommas[2] = Double.toString(holder);
-				splitAtCommas[2] += "%";
+			String[] data = outputFile.nextLine().split(",");
+			if(data[1].equals("PercentCell")){
+				double holder = Double.parseDouble(data[2]);
+				holder = holder * 100.0;
+				data[2] = Double.toString(holder);
+				data[2] += "%";
 			}
-			//call cell assignment to put into array
-			cellAssignment(splitAtCommas[2], splitAtCommas[0]);
+			cellAssignment(data[2], data[0]);
 		}
 		
 		outputFile.close();
@@ -181,10 +178,8 @@ Scanner outputFile;
 	     catch (FileNotFoundException e) {
 	            return "File not found: " + filename;
 	     }
-	     //nested for loop going through array
 	     for(int i = 0; i < 20; i++){
 	    	 for(int j = 0; j < 12; j++){
-	    		 //test to determine which cell
 	    		 if (!(arrayOfStuff[i][j] instanceof EmptyCell)){
 					fileData += (char)(j + 'A') + "" + (i+1) + ",";
 					if(arrayOfStuff[i][j] instanceof TextCell){
