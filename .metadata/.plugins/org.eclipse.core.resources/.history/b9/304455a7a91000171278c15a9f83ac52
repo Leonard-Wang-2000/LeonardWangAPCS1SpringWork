@@ -203,6 +203,6 @@ Scanner outputFile;
 	    	 }
 	     }
 	inputFile.close();
-	return ""; 
+	return "";
 	}
 }

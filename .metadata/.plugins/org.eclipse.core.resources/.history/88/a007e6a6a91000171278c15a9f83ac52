@@ -15,7 +15,7 @@ public class TextCell implements Cell  {
 				String abbreviatedString = "";
 				
 				//gets rid of quotes
-				if(strcontents.contains("\"")){
+				if(strcontents.contains("\"") == true){
 					abbreviatedString = strcontents.substring(1, strcontents.length() - 1);
 				}
 				//Reduces string to first 10
