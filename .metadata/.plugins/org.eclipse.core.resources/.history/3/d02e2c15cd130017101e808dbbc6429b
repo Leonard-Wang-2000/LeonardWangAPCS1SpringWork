@@ -9,22 +9,28 @@ public class FormulaCell extends RealCell{
 	}
 	public double getDoubleValue(){
 		String[] changeValue = value.split(" ");
-		double finalValue = Double.parseDouble(changeValue[1]);
-		//( 5.4 * 3.5 / -1.4 + 27.4 - 11.182 ) 
-		//increments by 2 and tests for signs to correctly 
-		for(int i = 4; i < changeValue.length; i+=2){
-			if(changeValue[i-2].equals("+")){
+		double finalValue = 0.0;
+		//( 4 + 3 )
+		for(int i = 2; i < changeValue.length; i+=2){
+			if(changeValue[i].equals("+")){
 				finalValue += Double.parseDouble(changeValue[i-1]);
-			} else if(changeValue[i-2].equals("*")){
+				finalValue += Double.parseDouble(changeValue[i+1]);
+			} else if(changeValue[i+1].equals("*")){
 				finalValue *= Double.parseDouble(changeValue[i-1]);
-			} else if(changeValue[i-2].equals("/")){
+				finalValue *= Double.parseDouble(changeValue[i+1]);
+			} else if(changeValue[i+1].equals("/")){
 				finalValue /= Double.parseDouble(changeValue[i-1]);
+				finalValue /= Double.parseDouble(changeValue[i+1]);
 			} else{
 				finalValue -= Double.parseDouble(changeValue[i-1]);
+				finalValue -= Double.parseDouble(changeValue[i+1]);
 			}
 		}
-		setRealCell(finalValue + "");
+		setRealCell(value + "");
 		return finalValue;
+	}
+	public String abbreviatedCellText(){
+		return value;
 	}
 	public String fullCellText(){
 		return value;

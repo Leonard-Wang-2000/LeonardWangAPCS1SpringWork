@@ -28,6 +28,7 @@ public abstract class RealCell implements Cell {
 			if(!userInput.contains("(")){
 				for(int i = userInput.length()-1; i >=0; i--){
 					//ends the loop if its not a zero
+					System.out.println(userInput);
 					if(userInput.charAt(i) != '0'){
 						i = 0;
 					}

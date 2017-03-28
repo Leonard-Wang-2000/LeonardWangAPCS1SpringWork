@@ -11,7 +11,6 @@ public class FormulaCell extends RealCell{
 		String[] changeValue = value.split(" ");
 		double finalValue = Double.parseDouble(changeValue[1]);
 		//( 5.4 * 3.5 / -1.4 + 27.4 - 11.182 ) 
-		//increments by 2 and tests for signs to correctly 
 		for(int i = 4; i < changeValue.length; i+=2){
 			if(changeValue[i-2].equals("+")){
 				finalValue += Double.parseDouble(changeValue[i-1]);

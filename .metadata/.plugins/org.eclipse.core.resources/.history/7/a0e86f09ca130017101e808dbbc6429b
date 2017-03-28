@@ -8,6 +8,9 @@ public abstract class RealCell implements Cell {
 	public String abbreviatedCellText() {
 		if(userInput.length() < 10){
 			//has to be percent with this sign
+			if(userInput.contains("(")){
+				
+			}
 			if(userInput.contains("%")){
 				//makes a placeholder so it doesnt affect full cell text
 				String placeholder = userInput.substring(0, userInput.indexOf(".")) + "%";
