@@ -123,7 +123,7 @@ public class Spreadsheet implements Grid
 		} else if(input.contains("\"")){
 			arrayOfStuff[b.getRow()][b.getCol()] = new TextCell(input);
 		} else if(input.contains("(")){
-			arrayOfStuff[b.getRow()][b.getCol()] = new FormulaCell(input);
+			arrayOfStuff[b.getRow()][b.getCol()] = new FormulaCell(input, arrayOfStuff);
 		} else{
 			arrayOfStuff[b.getRow()][b.getCol()] = new ValueCell(input);
 		}

@@ -67,8 +67,7 @@ public abstract class RealCell implements Cell {
 		//finds the right cell form
 		if(userInput.contains("%")){
 			whatever = new PercentCell(userInput);
-		} else if(userInput.contains("(")){
-			whatever = new FormulaCell(userInput);
+			//formulacell is overriden for fullcelltext
 		}else{
 			whatever = new ValueCell(userInput);
 		}
