@@ -94,6 +94,22 @@ public class FormulaCell extends RealCell{
 			}
 		}
 		return sum;
+//		double finalValue = Double.parseDouble(changeValue[0]);
+//		//( 5.4 * 3.5 / -1.4 + 27.4 - 11.182 ) 
+//		//increments by 2 and tests for signs to correctly 
+//		for(int i = 2; i < changeValue.length; i+=2){
+//			if(changeValue[i-1].equals("+")){
+//				finalValue += Double.parseDouble(changeValue[i]);
+//			} else if(changeValue[i-1].equals("*")){
+//				finalValue *= Double.parseDouble(changeValue[i]);
+//			} else if(changeValue[i-1].equals("/")){
+//				finalValue /= Double.parseDouble(changeValue[i]);
+//			} else{
+//				finalValue -= Double.parseDouble(changeValue[i]);
+//			}
+//		}
+//		setRealCell(finalValue + "");
+//		return finalValue;
 	}
 	public String fullCellText(){
 		return value;
@@ -109,10 +125,12 @@ public class FormulaCell extends RealCell{
 			return value;
 		}
 	}
-public double sum(String beginning, String changedCell, String end){	
-		SpreadsheetLocation loc = new SpreadsheetLocation(changedCell);
+public double sum(String cell, String newCell, String end){	
+		
+		SpreadsheetLocation loc = new SpreadsheetLocation(newCell);
+		
 		//when they are the same, finishes and goes back through
-		if(changedCell.equals(end)){
+		if(newCell.equals(end)){
 			if(wholeSpreadsheet[loc.getRow()][loc.getCol()] instanceof RealCell){
 				return ((RealCell)wholeSpreadsheet[loc.getRow()][loc.getCol()]).getDoubleValue();
 			}else{
@@ -120,29 +138,29 @@ public double sum(String beginning, String changedCell, String end){
 			}
 		}
 		//if the columns aren't the same, but the rows are, move horizontally
-		if(Character.toUpperCase(beginning.charAt(0)) != Character.toUpperCase(end.charAt(0)) 
-				&& Integer.parseInt(beginning.substring(1)) == Integer.parseInt(end.substring(1))){
+		if(Character.toUpperCase(cell.charAt(0)) != Character.toUpperCase(end.charAt(0)) 
+				&& Integer.parseInt(cell.substring(1)) == Integer.parseInt(end.substring(1))){
 			
-			changedCell = ((char)(changedCell.charAt(0) + 1)) + beginning.substring(1);
+			newCell = ((char)(newCell.charAt(0) + 1)) + cell.substring(1);
 			
 			//if the columns are the same,but the rows are not, move vertically
-		}else if(Character.toUpperCase(beginning.charAt(0)) == Character.toUpperCase(end.charAt(0))
-				&& Integer.parseInt(beginning.substring(1)) <= Integer.parseInt(end.substring(1))){
+		}else if(Character.toUpperCase(cell.charAt(0)) == Character.toUpperCase(end.charAt(0))
+				&& Integer.parseInt(cell.substring(1)) <= Integer.parseInt(end.substring(1))){
 			
-			changedCell = Character.toString(beginning.charAt(0)) + (Integer.parseInt(changedCell.substring(1)) + 1);
+			newCell = Character.toString(cell.charAt(0)) + (Integer.parseInt(newCell.substring(1)) + 1);
 			
 			//if the columns and the rows aren't the same, move through all of the cells
 		}else{
 			
 			//when row is less than the ending row, keep going down
-			if(Integer.parseInt(changedCell.substring(1)) < Integer.parseInt(end.substring(1))){
+			if(Integer.parseInt(newCell.substring(1)) < Integer.parseInt(end.substring(1))){
 				
-				changedCell = Character.toString(changedCell.charAt(0)) + (Integer.parseInt(changedCell.substring(1)) + 1);
+				newCell = Character.toString(newCell.charAt(0)) + (Integer.parseInt(newCell.substring(1)) + 1);
 
 				//if the rows are the same, reset and move to next column
-			}else if(Integer.parseInt(changedCell.substring(1)) == Integer.parseInt(end.substring(1))){
+			}else if(Integer.parseInt(newCell.substring(1)) == Integer.parseInt(end.substring(1))){
 				
-				changedCell = ((char)(changedCell.charAt(0) + 1)) + "" + beginning.substring(1);
+				newCell = ((char)(newCell.charAt(0) + 1)) + "" + cell.substring(1);
 				
 			}
 		}
@@ -151,9 +169,9 @@ public double sum(String beginning, String changedCell, String end){
 		double first;
 		if(wholeSpreadsheet[loc.getRow()][loc.getCol()] instanceof RealCell){
 			 first = ((RealCell)wholeSpreadsheet[loc.getRow()][loc.getCol()]).getDoubleValue();
-			return (first + sum(beginning, changedCell, end));
+			return (first + sum(cell, newCell, end));
 		}else{
-			return sum(beginning, changedCell, end);
+			return sum(cell, newCell, end);
 		}
 	}
 }
