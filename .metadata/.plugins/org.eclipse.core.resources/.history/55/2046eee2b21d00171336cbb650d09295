@@ -96,7 +96,7 @@ public class FormulaCell extends RealCell{
 	}
 public double sum(String beginning, String changedCell, String end){	
 		SpreadsheetLocation loc = new SpreadsheetLocation(changedCell);
-		//base case
+		//when they are the same, finishes and goes back through
 		if(changedCell.equals(end)){
 			if(wholeSpreadsheet[loc.getRow()][loc.getCol()] instanceof RealCell){
 				return ((RealCell)wholeSpreadsheet[loc.getRow()][loc.getCol()]).getDoubleValue();
@@ -104,10 +104,12 @@ public double sum(String beginning, String changedCell, String end){
 				return 0.0;
 			}
 		}
-		//Case 1: if the columns aren't the same, but the rows are, move horizontally
+		//if the columns aren't the same, but the rows are, move horizontally
 		if(Character.toUpperCase(beginning.charAt(0)) != Character.toUpperCase(end.charAt(0)) 
 				&& Integer.parseInt(beginning.substring(1)) == Integer.parseInt(end.substring(1))){
+			
 			changedCell = ((char)(changedCell.charAt(0) + 1)) + beginning.substring(1);
+			
 			//if the columns are the same,but the rows are not, move vertically
 		}else if(Character.toUpperCase(beginning.charAt(0)) == Character.toUpperCase(end.charAt(0))
 				&& Integer.parseInt(beginning.substring(1)) <= Integer.parseInt(end.substring(1))){
@@ -116,16 +118,22 @@ public double sum(String beginning, String changedCell, String end){
 			
 			//if the columns and the rows aren't the same, move through all of the cells
 		}else{
+			
 			//when row is less than the ending row, keep going down
 			if(Integer.parseInt(changedCell.substring(1)) < Integer.parseInt(end.substring(1))){
+				
 				changedCell = Character.toString(changedCell.charAt(0)) + (Integer.parseInt(changedCell.substring(1)) + 1);
+
 				//if the rows are the same, reset and move to next column
 			}else if(Integer.parseInt(changedCell.substring(1)) == Integer.parseInt(end.substring(1))){
+				
 				changedCell = ((char)(changedCell.charAt(0) + 1)) + "" + beginning.substring(1);
+				
 			}
 		}
+
 		//gets the value of the cell and keeps it and returns it
-		double first =0.0;
+		double first;
 		if(wholeSpreadsheet[loc.getRow()][loc.getCol()] instanceof RealCell){
 			 first = ((RealCell)wholeSpreadsheet[loc.getRow()][loc.getCol()]).getDoubleValue();
 			return (first + sum(beginning, changedCell, end));
