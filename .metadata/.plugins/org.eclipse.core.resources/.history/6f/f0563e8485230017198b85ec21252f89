@@ -1,0 +1,17 @@
+package testStuff;
+
+public class testing {
+
+	public static void main(String[] args) {
+		int a = 12;
+		double b = 2.5;
+		int c = 5;
+		double d = a/c;
+		System.out.println(d);
+		if(a/b == 2){
+			System.out.println("hi");
+		}
+
+	}
+
+}

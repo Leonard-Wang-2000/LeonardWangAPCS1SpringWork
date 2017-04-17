@@ -1,23 +1,4 @@
-INDEX VERSION 1.129+C:\Users\leo\Desktop\LeonardWangAPCS1SpringWork\.metadata\.plugins\org.eclipse.jdt.core
-618723895.index
-2855899100.index
-1075794691.index
-63125480.index
-1644702904.index
-714817055.index
-2809250744.index
+INDEX VERSION 1.129+C:\Users\APCS1\Desktop\LeonardWangAPCS1SpringWork\.metadata\.plugins\org.eclipse.jdt.core
+1719113712.index
+2902927186.index
 2426730796.index
-2800558102.index
-2637943071.index
-351221734.index
-2133282975.index
-3407430047.index
-414978335.index
-2307879432.index
-2019903893.index
-985286902.index
-781808.index
-4184201189.index
-471236001.index
-808374113.index
-3417200662.index
